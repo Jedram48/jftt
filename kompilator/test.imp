@@ -1,0 +1,6 @@
+# Binarna postać liczby 
+PROGRAM IS
+	n
+IN
+    n:=11;
+END

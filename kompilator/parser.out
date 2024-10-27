@@ -1,0 +1,304 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CLOSE_BRACKET
+    CLOSE_PAREN
+    COMMENT
+    DIV
+    DO
+    ELSE
+    ENDIF
+    ENDWHILE
+    EQ
+    GE
+    GT
+    IF
+    LE
+    LT
+    MINUS
+    MOD
+    NEQ
+    OPEN_BRACKET
+    OPEN_PAREN
+    PLUS
+    PROCEDURE
+    READ
+    REPEAT
+    THEN
+    TIMES
+    UNTIL
+    WHILE
+    WRITE
+
+Grammar
+
+Rule 0     S' -> program_all
+Rule 1     program_all -> main
+Rule 2     main -> PROGRAM IS declarations IN commands END
+Rule 3     main -> PROGRAM IS IN commands END
+Rule 4     commands -> command
+Rule 5     command -> identifier ASSIGN expression SEMICOLON
+Rule 6     declarations -> IDENTIFIER
+Rule 7     declarations -> declarations COMMA IDENTIFIER
+Rule 8     expression -> value
+Rule 9     value -> NUM
+Rule 10    value -> identifier
+Rule 11    identifier -> IDENTIFIER
+
+Terminals, with rules where they appear
+
+ASSIGN               : 5
+CLOSE_BRACKET        : 
+CLOSE_PAREN          : 
+COMMA                : 7
+COMMENT              : 
+DIV                  : 
+DO                   : 
+ELSE                 : 
+END                  : 2 3
+ENDIF                : 
+ENDWHILE             : 
+EQ                   : 
+GE                   : 
+GT                   : 
+IDENTIFIER           : 6 7 11
+IF                   : 
+IN                   : 2 3
+IS                   : 2 3
+LE                   : 
+LT                   : 
+MINUS                : 
+MOD                  : 
+NEQ                  : 
+NUM                  : 9
+OPEN_BRACKET         : 
+OPEN_PAREN           : 
+PLUS                 : 
+PROCEDURE            : 
+PROGRAM              : 2 3
+READ                 : 
+REPEAT               : 
+SEMICOLON            : 5
+THEN                 : 
+TIMES                : 
+UNTIL                : 
+WHILE                : 
+WRITE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+command              : 4
+commands             : 2 3
+declarations         : 2 7
+expression           : 5
+identifier           : 5 10
+main                 : 1
+program_all          : 0
+value                : 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program_all
+    (1) program_all -> . main
+    (2) main -> . PROGRAM IS declarations IN commands END
+    (3) main -> . PROGRAM IS IN commands END
+
+    PROGRAM         shift and go to state 3
+
+    program_all                    shift and go to state 1
+    main                           shift and go to state 2
+
+state 1
+
+    (0) S' -> program_all .
+
+
+
+state 2
+
+    (1) program_all -> main .
+
+    $end            reduce using rule 1 (program_all -> main .)
+
+
+state 3
+
+    (2) main -> PROGRAM . IS declarations IN commands END
+    (3) main -> PROGRAM . IS IN commands END
+
+    IS              shift and go to state 4
+
+
+state 4
+
+    (2) main -> PROGRAM IS . declarations IN commands END
+    (3) main -> PROGRAM IS . IN commands END
+    (6) declarations -> . IDENTIFIER
+    (7) declarations -> . declarations COMMA IDENTIFIER
+
+    IN              shift and go to state 6
+    IDENTIFIER      shift and go to state 7
+
+    declarations                   shift and go to state 5
+
+state 5
+
+    (2) main -> PROGRAM IS declarations . IN commands END
+    (7) declarations -> declarations . COMMA IDENTIFIER
+
+    IN              shift and go to state 8
+    COMMA           shift and go to state 9
+
+
+state 6
+
+    (3) main -> PROGRAM IS IN . commands END
+    (4) commands -> . command
+    (5) command -> . identifier ASSIGN expression SEMICOLON
+    (11) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 13
+
+    commands                       shift and go to state 10
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+
+state 7
+
+    (6) declarations -> IDENTIFIER .
+
+    IN              reduce using rule 6 (declarations -> IDENTIFIER .)
+    COMMA           reduce using rule 6 (declarations -> IDENTIFIER .)
+
+
+state 8
+
+    (2) main -> PROGRAM IS declarations IN . commands END
+    (4) commands -> . command
+    (5) command -> . identifier ASSIGN expression SEMICOLON
+    (11) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 13
+
+    commands                       shift and go to state 14
+    command                        shift and go to state 11
+    identifier                     shift and go to state 12
+
+state 9
+
+    (7) declarations -> declarations COMMA . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+
+state 10
+
+    (3) main -> PROGRAM IS IN commands . END
+
+    END             shift and go to state 16
+
+
+state 11
+
+    (4) commands -> command .
+
+    END             reduce using rule 4 (commands -> command .)
+
+
+state 12
+
+    (5) command -> identifier . ASSIGN expression SEMICOLON
+
+    ASSIGN          shift and go to state 17
+
+
+state 13
+
+    (11) identifier -> IDENTIFIER .
+
+    ASSIGN          reduce using rule 11 (identifier -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 11 (identifier -> IDENTIFIER .)
+
+
+state 14
+
+    (2) main -> PROGRAM IS declarations IN commands . END
+
+    END             shift and go to state 18
+
+
+state 15
+
+    (7) declarations -> declarations COMMA IDENTIFIER .
+
+    IN              reduce using rule 7 (declarations -> declarations COMMA IDENTIFIER .)
+    COMMA           reduce using rule 7 (declarations -> declarations COMMA IDENTIFIER .)
+
+
+state 16
+
+    (3) main -> PROGRAM IS IN commands END .
+
+    $end            reduce using rule 3 (main -> PROGRAM IS IN commands END .)
+
+
+state 17
+
+    (5) command -> identifier ASSIGN . expression SEMICOLON
+    (8) expression -> . value
+    (9) value -> . NUM
+    (10) value -> . identifier
+    (11) identifier -> . IDENTIFIER
+
+    NUM             shift and go to state 22
+    IDENTIFIER      shift and go to state 13
+
+    identifier                     shift and go to state 19
+    expression                     shift and go to state 20
+    value                          shift and go to state 21
+
+state 18
+
+    (2) main -> PROGRAM IS declarations IN commands END .
+
+    $end            reduce using rule 2 (main -> PROGRAM IS declarations IN commands END .)
+
+
+state 19
+
+    (10) value -> identifier .
+
+    SEMICOLON       reduce using rule 10 (value -> identifier .)
+
+
+state 20
+
+    (5) command -> identifier ASSIGN expression . SEMICOLON
+
+    SEMICOLON       shift and go to state 23
+
+
+state 21
+
+    (8) expression -> value .
+
+    SEMICOLON       reduce using rule 8 (expression -> value .)
+
+
+state 22
+
+    (9) value -> NUM .
+
+    SEMICOLON       reduce using rule 9 (value -> NUM .)
+
+
+state 23
+
+    (5) command -> identifier ASSIGN expression SEMICOLON .
+
+    END             reduce using rule 5 (command -> identifier ASSIGN expression SEMICOLON .)
+
