@@ -1,4 +1,3 @@
-# Implementacja automatów skończonych
 class FiniteAutomaton:
     def __init__(self, pattern):
         self.pattern = pattern
@@ -45,8 +44,6 @@ class FiniteAutomaton:
             print("Pattern not found in the text.")
 
 
-
-# Implementacja algorytmu Knutha-Morrisa-Pratta (KMP)
 def KMP(pattern, text):
     M = len(pattern)
     N = len(text)
@@ -99,7 +96,6 @@ def computeLPSArray(pattern, M, lps):
                 i += 1
 
 
-# Przykładowe wywołanie dla obu algorytmów
 if __name__ == "__main__":
     import sys
 
