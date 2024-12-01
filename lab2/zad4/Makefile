@@ -31,5 +31,6 @@ clean:
 # Rule to run the program
 run: $(TARGET)
 	./$(TARGET) $(INPUT) $(OUTPUT)
+	cat $(OUTPUT)
 
 all: $(TARGET)
