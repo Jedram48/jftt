@@ -29,7 +29,7 @@ clean:
 
 # Optional rule to run the program with an input file
 run: $(TARGET)
-	./$(TARGET) < text.txt
+	./$(TARGET) < test1a.txt
 
 all: run clean
 
